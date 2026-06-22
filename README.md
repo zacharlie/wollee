@@ -1,10 +1,14 @@
 # wollee
 
-Minimalist Wake-on-LAN management with a central server and lightweight agents.
+Minimalist Wake-on-LAN management service, with a central server and lightweight downstream agents written in go.
 
 ## Rationale
 
-wollee keeps management simple: agents only heartbeat upstream servers, while wake authorization and packet delivery stay centralized. This avoids exposing WoL controls on every host and keeps operations auditable through one API surface.
+wollee keeps power management simple: download the agent onto a downstream device and set it up as a service that sends heartbeats to an upstream server. The upstream server listens for heartbeats and keeps a centralized registry of connected clients. When a downstream client is unresponsive, the server can send a WoL packet to the client to wake it up.
+
+You are responsible for the configuration of the other machines, configuring their
+
+There are many frameworks which try to work across proxies, traverse subnets, manage system power, integrate with frameworks (e.g. homeassistant), or use fanciful protocol hacks to sense and control network devices.
 
 ## Components
 
@@ -89,14 +93,3 @@ If `server.telegramToken` is set and `allowedTelegramUsers` is non-empty:
 - `task build:local`
 - `task assets:sync`
 - `task build:release`
-
-## CI/CD
-
-PR and branch CI runs lint/test only.
-
-Release binaries are generated only for tagged pushes (`v*`) using Task-based build steps after asset sync.
-
-## Alternatives considered
-
-- Per-agent local wake control: rejected to avoid distributed access control and duplicated security surfaces.
-- Persistent database registry: rejected in favor of simple YAML state for low operational overhead.

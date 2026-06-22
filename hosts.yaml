@@ -1,0 +1,9 @@
+hosts:
+    - mac: "00:11:22:33:44:55"
+      hostname: desktop
+      ip: ""
+      lastSeen: 0001-01-01T00:00:00Z
+    - mac: ca:57:fe:39:32:ff
+      hostname: MacBookAir.lan
+      ip: ""
+      lastSeen: 0001-01-01T00:00:00Z
